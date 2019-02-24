@@ -1,17 +1,53 @@
 import React from 'react';
 import {StyleSheet, View, Text, TextInput, Button,TouchableHighlight} from 'react-native';
+import firebase from 'firebase';
 
 import AddButton from '../elements/AddButton.js'
 
 class LoginScreen extends React.Component {
+  state = {
+    email: '',
+    password: '',
+  }
+
+  handleSubmit() {
+    const config = {
+      apiKey: 'AIzaSyD0nHAfCEpAmjEtBg04dq1sQRYjOpeYskA',
+      authDomain: 'memoapp-4a1b8.firebaseapp.com',
+      databaseURL: 'https://memoapp-4a1b8.firebaseio.com',
+      projectId: 'memoapp-4a1b8',
+      storageBucket: 'memoapp-4a1b8.appspot.com',
+      messagingSenderId: '156783376160',
+    };
+      firebase.initializeApp(config);
+      console.log('email: '+this.state.email +' PassWord: '+this.state.password);
+  }
+
+
   render() {
     return (
       <View style={styles.Container}>
       <Text　style={styles.TEXTLOGIN}>ログイン</Text>
-        <TextInput style={styles.Input} value ='Email Address' />
-        <TextInput style={styles.Input} value ='PassWord' />
+        <TextInput
+          style={styles.Input}
+          value ={this.state.email}
+          onChangeText = {(text)=>{this.setState({email: text})}}
+          autoCapitalize ="none"
+          autoCorrect = {false}
+          placeholder = "EmailAddress"
+          placeholderTextColor = "yellow"
+          />
+        <TextInput
+          style={styles.Input}
+          value ={this.state.password}
+          onChangeText = {(text)=>{this.setState({password: text})}}
+          autoCapitalize ='none'
+          placeholder = "PassWord"
+          placeholderTextColor = "pink"
+          secureTextEntry
+          />
       <TouchableHighlight style={styles.ButtonStyle}
-        onPress={ () => {} }
+        onPress={this.handleSubmit.bind(this)}
         >
         <Text style={styles.TextStyle}>ログインする</Text>
         </TouchableHighlight>
