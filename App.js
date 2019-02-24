@@ -8,25 +8,23 @@ import firebase from 'firebase';
 import ENV from'./env.json';
 
 const config = {
-  apiKey: ENV.FIREBASE_API_KEY,
-  authDomain: ENV.FIREBASE_AUTH_DOMAIN,
-  databaseURL: ENV.FIREBASE_DB_URL,
-  projectId: ENV.FIREBASE_PRJ_ID,
+  apiKey:       ENV.FIREBASE_API_KEY,
+  authDomain:   ENV.FIREBASE_AUTH_DOMAIN,
+  databaseURL:  ENV.FIREBASE_DB_URL,
+  projectId:    ENV.FIREBASE_PRJ_ID,
   storageBucket:ENV.FIREBASE_STORAGE,
   messagingSenderId: ENV.FIREBASE_SENDER_ID,
 };
   firebase.initializeApp(config);
 
 const App = createStackNavigator({
-  Login:        LoginScreen,
-  signIN:       SighnUpScreen,
-  Home:       MemoListScreen,
+        Login:        LoginScreen,
+      signIN:       SighnUpScreen,
+
+    Home:       MemoListScreen,
     MemoEdit:   MemoEditScreen,
     MemoDetail: MemoDetailScreen,
-
-
-
-},
+  },
 {
   defaultNavigationOptions: {
       headerTitle:'在宅医療連携システム「ゆい」',

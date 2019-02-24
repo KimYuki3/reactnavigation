@@ -2,17 +2,54 @@ import React from 'react';
 import {StyleSheet, View, Text, TextInput, Button,TouchableHighlight} from 'react-native';
 
 import AddButton from '../elements/AddButton.js'
-
+import firebase from 'firebase';
 class SighnUpScreen extends React.Component {
+  state = {
+    email: '',
+    password: '',
+  }
+
+  handleSubmit() {
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+
+    .catch((error)=>{
+        console.log(error);
+    })
+    .then((user) => {
+      this.props.navigation.navigate('Home');
+        console.log('suscess!! :',user,this.state.email);
+})
+
+          //console.log('email: '+this.state.email +' PassWord: '+this.state.password);
+  }
+
   render() {
     return (
       <View style={styles.Container}>
       <Text　style={styles.TEXTLOGIN}>登録画面</Text>
-        <TextInput style={styles.Input} value ='Email Address' />
-        <TextInput style={styles.Input} value ='PassWord' />
-        
+        <TextInput
+          style={styles.Input}
+          value ={this.state.email}
+          onChangeText = {(text)=>{this.setState({email:text})}}
+          autoCapitalize ="none"
+          autoCorrect = {false}
+          placeholder = "EmailAddress"
+          placeholderTextColor = "yellow"
+          />
+
+        <TextInput
+          style={styles.Input}
+          value ={this.state.password}
+          onChangeText = {(text)=>{this.setState({password: text})}}
+          autoCapitalize ='none'
+          placeholder = "PassWord"
+          placeholderTextColor = "pink"
+          secureTextEntry
+
+          />
+
       <TouchableHighlight style={styles.ButtonStyle}
-        onPress={ () => {} }
+        onPress={this.handleSubmit.bind(this)}
         underlayColor="white"
         >
         <Text style={styles.TextStyle} >登録する</Text>

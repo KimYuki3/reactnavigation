@@ -1,9 +1,8 @@
 import React from 'react';
 import {StyleSheet, View, Text, TextInput, Button,TouchableHighlight} from 'react-native';
-import firebase from 'firebase';
 
 import AddButton from '../elements/AddButton.js'
-
+import firebase from 'firebase';
 class LoginScreen extends React.Component {
   state = {
     email: '',
@@ -11,16 +10,16 @@ class LoginScreen extends React.Component {
   }
 
   handleSubmit() {
-    const config = {
-      apiKey: 'AIzaSyD0nHAfCEpAmjEtBg04dq1sQRYjOpeYskA',
-      authDomain: 'memoapp-4a1b8.firebaseapp.com',
-      databaseURL: 'https://memoapp-4a1b8.firebaseio.com',
-      projectId: 'memoapp-4a1b8',
-      storageBucket: 'memoapp-4a1b8.appspot.com',
-      messagingSenderId: '156783376160',
-    };
-      firebase.initializeApp(config);
-      console.log('email: '+this.state.email +' PassWord: '+this.state.password);
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+    .then((user)=>{
+        this.props.navigation.navigate('Home');
+    })
+    .catch((error) => {
+      console.log('Error',error);
+  })
+
+
+      //console.log('email: '+this.state.email +' PassWord: '+this.state.password);
   }
 
 
